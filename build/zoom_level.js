@@ -1,5 +1,10 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ZoomLevel = undefined;
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _world_values = require('./world_values');
@@ -9,6 +14,8 @@ var worldValues = _interopRequireWildcard(_world_values);
 var _mercator_projection = require('./mercator_projection');
 
 var mercProj = _interopRequireWildcard(_mercator_projection);
+
+var _logger = require('./logger');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -71,9 +78,9 @@ var ZoomLevel = function () {
             var mercExtent = this.getMercatorExtentForTile(x, y);
             var maxMerc = { "north": mercExtent.maxNorth, "east": mercExtent.maxEast };
             var minMerc = { "north": mercExtent.minNorth, "east": mercExtent.minEast };
-            var maxGeo = {};
+            var maxGeo = this.mercatorProjection.convertMercToGeo(maxMerc);
             var minGeo = this.mercatorProjection.convertMercToGeo(minMerc);
-            return "not yet implemented";
+            return { "minLon": minGeo.lon, "minLat": minGeo.lat, "maxLon": maxGeo.lon, "maxLat": maxGeo.lat };
         }
     }, {
         key: 'getZoomLevelCardinality',
@@ -85,17 +92,23 @@ var ZoomLevel = function () {
     return ZoomLevel;
 }();
 
-var zoomLevel = new ZoomLevel(10);
-console.log(zoomLevel.getZoomLevelCardinality());
+exports.ZoomLevel = ZoomLevel;
+
+
+var z = 10;
+var zoomLevel = new ZoomLevel(z);
+_logger.logger.log("Zoom level ", z, " cardinality ", zoomLevel.getZoomLevelCardinality());
 var p = { "lon": 10, "lat": 45 };
-console.log("Geo point: ", p);
+_logger.logger.log("Geo point: ", p);
 var mp = zoomLevel.mercatorProjection.convertGeoToMerc(p);
-console.log("Converted mercator point: ", mp);
+_logger.logger.log("Converted mercator point: ", mp);
 var gp = zoomLevel.mercatorProjection.convertMercToGeo(mp);
-console.log("Re-converted geo point: ", gp);
+_logger.logger.log("Re-converted geo point: ", gp);
 var xy = zoomLevel.getTileXYForWGS84Point(p);
-console.log("Tiles coord: ", xy);
+_logger.logger.log("Tiles coord: ", xy);
 var mercatorExtent = zoomLevel.getMercatorExtentForTile(xy.x, xy.y);
-console.log("Mercator extent: ", mercatorExtent);
+_logger.logger.log("Mercator extent: ", mercatorExtent);
+var geoExtent = zoomLevel.getWGS84ExtentForTile(xy.x, xy.y);
+_logger.logger.log("WGS84 extent: ", geoExtent);
 
 //# sourceMappingURL=zoom_level.js.map

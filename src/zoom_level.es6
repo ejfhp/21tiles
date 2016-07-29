@@ -1,5 +1,6 @@
 import * as worldValues from './world_values';
 import * as mercProj from './mercator_projection';
+import {logger} from './logger';
 
 class ZoomLevel {
 
@@ -49,10 +50,10 @@ class ZoomLevel {
     getWGS84ExtentForTile(x, y) {
         let mercExtent = this.getMercatorExtentForTile(x, y);
         let maxMerc = {"north": mercExtent.maxNorth, "east": mercExtent.maxEast};
-        let minMerc = {"north" : mercExtent.minNorth, "east": mercExtent.minEast};
-        let maxGeo = {}
+        let minMerc = {"north": mercExtent.minNorth, "east": mercExtent.minEast};
+        let maxGeo = this.mercatorProjection.convertMercToGeo(maxMerc)
         let minGeo = this.mercatorProjection.convertMercToGeo(minMerc);
-        return "not yet implemented";
+        return {"minLon": minGeo.lon, "minLat": minGeo.lat, "maxLon": maxGeo.lon, "maxLat": maxGeo.lat};
     }
 
     getZoomLevelCardinality() {
@@ -61,15 +62,20 @@ class ZoomLevel {
 
 }
 
-let zoomLevel = new ZoomLevel(10);
-console.log(zoomLevel.getZoomLevelCardinality());
+export {ZoomLevel};
+
+let z = 10;
+let zoomLevel = new ZoomLevel(z);
+logger.log("Zoom level ", z, " cardinality ",  zoomLevel.getZoomLevelCardinality());
 let p = {"lon": 10, "lat": 45};
-console.log("Geo point: ", p)
+logger.log("Geo point: ", p)
 let mp = zoomLevel.mercatorProjection.convertGeoToMerc(p);
-console.log("Converted mercator point: ", mp);
+logger.log("Converted mercator point: ", mp);
 let gp = zoomLevel.mercatorProjection.convertMercToGeo(mp);
-console.log("Re-converted geo point: ", gp);
+logger.log("Re-converted geo point: ", gp);
 let xy = zoomLevel.getTileXYForWGS84Point(p);
-console.log("Tiles coord: ", xy);
+logger.log("Tiles coord: ", xy);
 let mercatorExtent = zoomLevel.getMercatorExtentForTile(xy.x, xy.y)
-console.log("Mercator extent: ", mercatorExtent);
+logger.log("Mercator extent: ", mercatorExtent);
+let geoExtent = zoomLevel.getWGS84ExtentForTile(xy.x, xy.y)
+logger.log("WGS84 extent: ", geoExtent);
