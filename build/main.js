@@ -2,11 +2,7 @@
 
 var _zoom_level = require('./zoom_level');
 
-var zoomLevel = _interopRequireWildcard(_zoom_level);
-
 var _logger = require('./logger');
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /**
  * Created by diego on 26/07/16.
@@ -19,40 +15,43 @@ var OP_GET_TILE_EXT_MERC = "GET_TILE_EXT_MERC";
 
 if (process.argv.length < 4) {
     console.log("Usage: " + __filename + " <OPERATION> <ZOOM> <X> <Y>");
+    console.log("Operation: ");
+    console.log("      ", OP_GET_TILE_XY);
+    console.log("      ", OP_GET_TILE_EXT_GEO);
+    console.log("      ", OP_GET_TILE_EXT_MERC);
     process.exit(-1);
 }
 var operation = process.argv[2];
 _logger.logger.log('Operation: ', operation);
-var zoom = process.argv[3];
+var zoom = Number(process.argv[3].trim());
 _logger.logger.log('Zoom level: ', zoom);
-var x = process.argv[4];
+var x = Number(process.argv[4].trim());
 _logger.logger.log('X: ', x);
-var y = process.argv[5];
+var y = Number(process.argv[5].trim());
 _logger.logger.log('Y: ', y);
 
 var result = void 0;
 
 if (operation == OP_GET_TILE_XY) {
-    var zl = new zoomLevel.ZoomLevel(zoom);
+    var zl = new _zoom_level.ZoomLevel(zoom);
     var p = { "lon": x, "lat": y };
     _logger.logger.log("Geo point: ", p);
     var xy = zl.getTileXYForWGS84Point(p);
-    _logger.logger.log("Tile coord: ", xy);
+    _logger.logger.log("Result: Tile coord: ", xy);
     result = xy;
 } else if (operation == OP_GET_TILE_EXT_GEO) {
-    var _zl = new zoomLevel.ZoomLevel(zoom);
+    var _zl = new _zoom_level.ZoomLevel(zoom);
+    _logger.logger.log("Tile XY: ", x, y);
+    var geoExtent = _zl.getWGS84ExtentForTile(x, y);
+    _logger.logger.log("Result: Tile WGS84 extent: ", geoExtent);
+    result = geoExtent;
+} else if (operation == OP_GET_TILE_EXT_MERC) {
+    var _zl2 = new _zoom_level.ZoomLevel(zoom);
     var _xy = { "x": x, "y": y };
     _logger.logger.log("Tile XY: ", _xy);
-    var mercatorExtent = _zl.getWGS84ExtentForTile(_xy.x, _xy.y);
-    _logger.logger.log("Tile WGS84 extent: ", mercatorExtent);
+    var mercatorExtent = _zl2.getMercatorExtentForTile(_xy.x, _xy.y);
+    _logger.logger.log("Result: Tile Mercator extent: ", mercatorExtent);
     result = mercatorExtent;
-} else if (operation == OP_GET_TILE_EXT_MERC) {
-    var _zl2 = new zoomLevel.ZoomLevel(zoom);
-    var _xy2 = { "x": x, "y": y };
-    _logger.logger.log("Tile XY: ", _xy2);
-    var _mercatorExtent = _zl2.getMercatorExtentForTile(_xy2.x, _xy2.y);
-    _logger.logger.log("Tile Mercator extent: ", _mercatorExtent);
-    result = _mercatorExtent;
 } else {
     console.log("Operation not found: ", operation);
 }

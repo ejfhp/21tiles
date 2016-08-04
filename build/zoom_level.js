@@ -25,7 +25,8 @@ var ZoomLevel = function () {
     function ZoomLevel(zoomLevel) {
         _classCallCheck(this, ZoomLevel);
 
-        this.zoom = zoomLevel;
+        _logger.logger.log("New ZoomLevel:  ", zoomLevel);
+        this.zoom = Math.floor(zoomLevel);
         this.matrixSideSize = Math.pow(2, this.zoom);
         this.horizontalMapTileSize = worldValues.EQUATOR / this.matrixSideSize;
         this.verticalMapTileSize = 2 * worldValues.MERIDIAN / this.matrixSideSize;
@@ -35,29 +36,36 @@ var ZoomLevel = function () {
     _createClass(ZoomLevel, [{
         key: 'getXYOfTileContainingPoint',
         value: function getXYOfTileContainingPoint(x, y, projectionType) {
+            _logger.logger.log("getXYOfTileContainingPoint, x, y, projectionType: ", x, y, projectionType);
             var res = null;
             if (projectionType == worldValues.PROJECTION_TYPE_WEBMERCATOR) {
                 res = this.mercatorProjection.getTileXYForMercatorPoint(x, y);
             } else if (projectionType == worldValues.PROJECTION_TYPE_WGS84) {
                 res = this.mercatorProjection.getTileXYForWGS84Point(x, y);
             }
+            _logger.logger.log("getXYOfTileContainingPoint, res: ", res);
             return res;
         }
     }, {
         key: 'getTileXYForWGS84Point',
         value: function getTileXYForWGS84Point(geoPoint) {
+            _logger.logger.log("getTileXYForWGS84Point, geoPoint: ", geoPoint);
             if (geoPoint.lon < -179.999999 || geoPoint.lon > 179.999999 || geoPoint.lat < -85.0511 || geoPoint.lat > 85.0511) {
                 throw "TILES_COORD_OUT_OF_RANGE";
             }
             var mercPoint = this.mercatorProjection.convertGeoToMerc(geoPoint);
-            return this.getTileXYForMercatorPoint(mercPoint);
+            var res = this.getTileXYForMercatorPoint(mercPoint);
+            _logger.logger.log("getTileXYForWGS84Point, res: ", res);
+            return res;
         }
     }, {
         key: 'getTileXYForMercatorPoint',
         value: function getTileXYForMercatorPoint(mercPoint) {
+            _logger.logger.log("getTileXYForMercatorPoint, mercPoint: ", mercPoint);
             var tileXY = { "x": 0, "y": 0 };
             tileXY.x = Math.floor((mercPoint.east + worldValues.EQUATOR / 2.0) / this.horizontalMapTileSize);
             tileXY.y = Math.floor((worldValues.MERIDIAN - mercPoint.north) / this.verticalMapTileSize);
+            _logger.logger.log("getTileXYForMercatorPoint, tileXY: ", tileXY);
             return tileXY;
         }
 
@@ -65,22 +73,32 @@ var ZoomLevel = function () {
 
     }, {
         key: 'getMercatorExtentForTile',
-        value: function getMercatorExtentForTile(x, y) {
+        value: function getMercatorExtentForTile(tilex, tiley) {
+            var x = Math.floor(tilex);
+            var y = Math.floor(tiley);
+            _logger.logger.log("getMercatorExtentForTile, zoom ", this.zoom, ": ", x, y);
             var minEast = x * this.horizontalMapTileSize - worldValues.EQUATOR / 2.0;
             var maxEast = (x + 1.0) * this.horizontalMapTileSize - worldValues.EQUATOR / 2.0;
             var maxNorth = worldValues.MERIDIAN - y * this.verticalMapTileSize;
             var minNorth = worldValues.MERIDIAN - (y + 1.0) * this.verticalMapTileSize;
-            return { "minEast": minEast, "maxEast": maxEast, "minNorth": minNorth, "maxNorth": maxNorth };
+            var res = { "minEast": minEast, "maxEast": maxEast, "minNorth": minNorth, "maxNorth": maxNorth };
+            _logger.logger.log("getMercatorExtentForTile, res: ", res);
+            return res;
         }
     }, {
         key: 'getWGS84ExtentForTile',
-        value: function getWGS84ExtentForTile(x, y) {
+        value: function getWGS84ExtentForTile(tilex, tiley) {
+            var x = Math.floor(tilex);
+            var y = Math.floor(tiley);
+            _logger.logger.log("getWGS84EtentForTile, zoom ", this.zoom, ": ", x, y);
             var mercExtent = this.getMercatorExtentForTile(x, y);
             var maxMerc = { "north": mercExtent.maxNorth, "east": mercExtent.maxEast };
             var minMerc = { "north": mercExtent.minNorth, "east": mercExtent.minEast };
             var maxGeo = this.mercatorProjection.convertMercToGeo(maxMerc);
             var minGeo = this.mercatorProjection.convertMercToGeo(minMerc);
-            return { "minLon": minGeo.lon, "minLat": minGeo.lat, "maxLon": maxGeo.lon, "maxLat": maxGeo.lat };
+            var res = { "minLon": minGeo.lon, "minLat": minGeo.lat, "maxLon": maxGeo.lon, "maxLat": maxGeo.lat };
+            _logger.logger.log("getWGS84EtentForTile, res: ", res);
+            return res;
         }
     }, {
         key: 'getZoomLevelCardinality',
@@ -94,21 +112,20 @@ var ZoomLevel = function () {
 
 exports.ZoomLevel = ZoomLevel;
 
-
-var z = 10;
-var zoomLevel = new ZoomLevel(z);
-_logger.logger.log("Zoom level ", z, " cardinality ", zoomLevel.getZoomLevelCardinality());
-var p = { "lon": 10, "lat": 45 };
-_logger.logger.log("Geo point: ", p);
-var mp = zoomLevel.mercatorProjection.convertGeoToMerc(p);
-_logger.logger.log("Converted mercator point: ", mp);
-var gp = zoomLevel.mercatorProjection.convertMercToGeo(mp);
-_logger.logger.log("Re-converted geo point: ", gp);
-var xy = zoomLevel.getTileXYForWGS84Point(p);
-_logger.logger.log("Tiles coord: ", xy);
-var mercatorExtent = zoomLevel.getMercatorExtentForTile(xy.x, xy.y);
-_logger.logger.log("Mercator extent: ", mercatorExtent);
-var geoExtent = zoomLevel.getWGS84ExtentForTile(xy.x, xy.y);
-_logger.logger.log("WGS84 extent: ", geoExtent);
+// let z = 19;
+// let zoomLevel = new ZoomLevel(z);
+// logger.log("Zoom level ", z, " cardinality ",  zoomLevel.getZoomLevelCardinality());
+// let p = {"lon": 10, "lat": 46};
+// logger.log("Geo point: ", p)
+// let mp = zoomLevel.mercatorProjection.convertGeoToMerc(p);
+// logger.log("Converted mercator point: ", mp);
+// let gp = zoomLevel.mercatorProjection.convertMercToGeo(mp);
+// logger.log("Re-converted geo point: ", gp);
+// let xy = zoomLevel.getTileXYForWGS84Point(p);
+// logger.log("Tiles coord: ", xy);
+// let mercatorExtent = zoomLevel.getMercatorExtentForTile(xy.x, xy.y)
+// logger.log("Mercator extent: ", mercatorExtent);
+// let geoExtent = zoomLevel.getWGS84ExtentForTile(xy.x, xy.y)
+// logger.log("WGS84 extent: ", geoExtent);
 
 //# sourceMappingURL=zoom_level.js.map

@@ -1,0 +1,30 @@
+info:
+  contact: {email: agitatesolidbee@gmail.com, name: ASB}
+  description: 'Perform Google Maps tiles extent computations.'
+  title: '21tiles'
+  x-21-category: utilities
+  x-21-github-project-url: https://github.com/21dotco/ping21
+  x-21-keywords: [maps, tile, extent. geo]
+  x-21-quick-buy: "21 buy 'http://<ZEROTIER IP>:5000/tile_coord?zoom=19&lon=10&lat=46'"
+  x-21-total-price: {max: 5, min: 5}
+basePath: /
+paths:
+  /tile_coord:
+    get:
+      consumes: [application/x-www-form-urlencoded]
+      produces: [application/json]
+      responses:
+        200:
+          description: Coordinates of the tile that contains the given coordinates at the given zoom level.
+          schema:
+            properties:
+              ping:
+                items: {type: string}
+                type: array
+              server: {$ref: '#/definitions/Server'}
+            type: object
+      summary: Return ping statistics between this device and a given domain
+        or IP.
+schemes: [http]
+swagger: '2.0'
+x-21-manifest-path: /manifest
