@@ -9,22 +9,54 @@ info:
   x-21-total-price: {max: 5, min: 5}
 basePath: /
 paths:
-  /tile_coord:
-    get:
-      consumes: [application/x-www-form-urlencoded]
-      produces: [application/json]
-      responses:
-        200:
-          description: Coordinates of the tile that contains the given coordinates at the given zoom level.
-          schema:
-            properties:
-              ping:
-                items: {type: string}
-                type: array
-              server: {$ref: '#/definitions/Server'}
-            type: object
-      summary: Return ping statistics between this device and a given domain
-        or IP.
+      /tile_coord:
+          get:
+            consumes: [application/x-www-form-urlencoded]
+            produces: [application/json]
+            responses:
+              200:
+                description: Coordinates of the tile that contains the given coordinates at the given zoom level.
+                schema:
+                  properties:
+                    zoom:
+                      type: int
+                    x:
+                      type: double
+                    y:
+                      type: double
+            summary: Returns tiles x and y.
+      /tile_extent_geo:
+          get:
+            consumes: [application/x-www-form-urlencoded]
+            produces: [application/json]
+            responses:
+              200:
+                description: WGS84 extent of the tile at the given coordinates and at the given zoom level.
+                schema:
+                  properties:
+                    zoom:
+                      type: int
+                    x:
+                      type: int
+                    y:
+                      type: int
+            summary: Returns geo extent of the tile at the given coords.
+      /tile_extent_merc:
+          get:
+            consumes: [application/x-www-form-urlencoded]
+            produces: [application/json]
+            responses:
+              200:
+                description: Google Mercator extent of the tile at the given coordinates and at the given zoom level.
+                schema:
+                  properties:
+                    zoom:
+                      type: int
+                    x:
+                      type: int
+                    y:
+                      type: int
+            summary: Returns merc extent of the tile at the given coords.
 schemes: [http]
 swagger: '2.0'
 x-21-manifest-path: /manifest

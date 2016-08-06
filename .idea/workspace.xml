@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="661fde15-f2d1-4963-a891-c883d30b4ad4" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/21tiles-client.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/21tiles-server.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/main.js" afterPath="$PROJECT_DIR$/build/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/main.js.map" afterPath="$PROJECT_DIR$/build/main.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/zoom_level.js" afterPath="$PROJECT_DIR$/build/zoom_level.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/zoom_level.js.map" afterPath="$PROJECT_DIR$/build/zoom_level.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.es6" afterPath="$PROJECT_DIR$/src/main.es6" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zoom_level.es6" afterPath="$PROJECT_DIR$/src/zoom_level.es6" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stdout.log" afterPath="$PROJECT_DIR$/stdout.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manifest.yaml" afterPath="$PROJECT_DIR$/manifest.yaml" />
     </list>
     <ignored path="21tiles.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,8 +36,8 @@
       <file leaf-file-name="21tiles-server.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/21tiles-server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="26" column="23" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="23" />
+            <state relative-caret-position="345">
+              <caret line="58" column="29" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -55,8 +46,8 @@
       <file leaf-file-name="manifest.yaml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/manifest.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="107" selection-start-line="17" selection-start-column="107" selection-end-line="17" selection-end-column="107" />
+            <state relative-caret-position="615">
+              <caret line="41" column="34" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -71,16 +62,6 @@
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#41#80#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ping21-server.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ping21-server.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="39" selection-end-column="31" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -316,12 +297,12 @@
       <workItem from="1467300773356" duration="6268000" />
       <workItem from="1467533195259" duration="61000" />
       <workItem from="1467649939979" duration="9032000" />
-      <workItem from="1469550820414" duration="19061000" />
+      <workItem from="1469550820414" duration="19915000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41660000" />
+    <option name="totallyTimeSpent" value="42514000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -334,13 +315,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24954791" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299389" sideWeight="0.4978903" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33604887" sideWeight="0.52380955" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33604887" sideWeight="0.47619048" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33604887" sideWeight="0.47619048" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24954791" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32179227" sideWeight="0.47860157" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -651,16 +632,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/21tiles-server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="26" column="23" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="23" />
+        <state relative-caret-position="345">
+          <caret line="58" column="29" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/manifest.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="107" selection-start-line="17" selection-start-column="107" selection-end-line="17" selection-end-column="107" />
+        <state relative-caret-position="615">
+          <caret line="41" column="34" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
           <folding />
         </state>
       </provider>
