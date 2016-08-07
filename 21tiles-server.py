@@ -15,8 +15,6 @@ from flask import request
 from two1.wallet.two1_wallet import Wallet
 from two1.bitserv.flask import Payment
 
-from ping21 import ping21, getHostname
-
 # set up server side wallet
 app = Flask(__name__)
 wallet = Wallet()

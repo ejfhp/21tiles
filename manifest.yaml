@@ -4,8 +4,8 @@ info:
   title: '21tiles'
   x-21-category: utilities
   x-21-github-project-url: https://github.com/21dotco/ping21
-  x-21-keywords: [maps, tile, extent. geo]
-  x-21-quick-buy: "21 buy 'http://<ZEROTIER IP>:5000/tile_coord?zoom=19&lon=10&lat=46'"
+  x-21-keywords: [maps, tile, extent, geo]
+  x-21-quick-buy: "21 buy 'http://10.244.65.224:5000/tile_coord?zoom=19&x=10&y=46'"
   x-21-total-price: {max: 5, min: 5}
 basePath: /
 paths:
@@ -15,9 +15,9 @@ paths:
             produces: [application/json]
             responses:
               200:
-                description: Coordinates of the tile that contains the given coordinates at the given zoom level.
-                schema:
-                  properties:
+                description: Coordinates of the tile that contains the given coordinates at the given zoom level. Query params: zoom, x, y.
+            schema:
+              properties:
                     zoom:
                       type: int
                     x:
@@ -31,25 +31,25 @@ paths:
             produces: [application/json]
             responses:
               200:
-                description: WGS84 extent of the tile at the given coordinates and at the given zoom level.
-                schema:
-                  properties:
+                description: WGS84 extent of the tile at the given coordinates and at the given zoom level. Query params: zoom, x, y.
+            schema:
+              properties:
                     zoom:
                       type: int
                     x:
                       type: int
                     y:
                       type: int
-            summary: Returns geo extent of the tile at the given coords.
+            summary: Returns geo extent of the tile at the given coords. 
       /tile_extent_merc:
           get:
             consumes: [application/x-www-form-urlencoded]
             produces: [application/json]
             responses:
               200:
-                description: Google Mercator extent of the tile at the given coordinates and at the given zoom level.
-                schema:
-                  properties:
+                description: Google Mercator extent of the tile at the given coordinates and at the given zoom level. Query params: zoom, x, y.
+            schema:
+              properties:
                     zoom:
                       type: int
                     x:
@@ -59,4 +59,5 @@ paths:
             summary: Returns merc extent of the tile at the given coords.
 schemes: [http]
 swagger: '2.0'
+host: 10.244.65.224:5000
 x-21-manifest-path: /manifest
