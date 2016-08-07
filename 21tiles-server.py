@@ -25,7 +25,7 @@ payment = Payment(app, wallet)
 
 # create a 402 (http payment required) end-point that accepts a user's input (zoom, point x, point y) and returns tile coords
 @app.route('/tile_coord')
-#@payment.required(0)
+#@payment.required(5)
 def tilecoord():
     zoom = request.args.get('zoom')
     lon = request.args.get('x')
@@ -41,7 +41,7 @@ def tilecoord():
 
 # create a 402 (http payment required) end-point that accepts a user's input (zoom, tile x, tile y) and returns tile geo extent
 @app.route('/tile_extent_geo')
-#@payment.required(0)
+#@payment.required(5)
 def tile_extent_geo():
     zoom = request.args.get('zoom')
     x = request.args.get('x')
@@ -57,7 +57,7 @@ def tile_extent_geo():
 
 # create a 402 (http payment required) end-point that accepts a user's input (zoom, tile x, tile y) and returns tile mercator extent
 @app.route('/tile_extent_merc')
-#@payment.required(0)
+#@payment.required(5)
 def tile_merc_extent():
     """Get Tiles mercator extent for tile x and y at zoom level zoom"""
     print('get input')
