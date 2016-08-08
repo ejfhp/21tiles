@@ -15,7 +15,7 @@ paths:
             produces: [application/json]
             responses:
               200:
-                description: Coordinates of the tile that contains the given coordinates at the given zoom level. Query params: zoom, x, y.
+                description: "Coordinates of the tile that contains the given coordinates at the given zoom level. Query params: zoom, x, y."
             schema:
               properties:
                     zoom:
@@ -31,7 +31,7 @@ paths:
             produces: [application/json]
             responses:
               200:
-                description: WGS84 extent of the tile at the given coordinates and at the given zoom level. Query params: zoom, x, y.
+                description: "WGS84 extent of the tile at the given coordinates and at the given zoom level. Query params: zoom, x, y."
             schema:
               properties:
                     zoom:
@@ -47,7 +47,7 @@ paths:
             produces: [application/json]
             responses:
               200:
-                description: Google Mercator extent of the tile at the given coordinates and at the given zoom level. Query params: zoom, x, y.
+                description: "Google Mercator extent of the tile at the given coordinates and at the given zoom level. Query params: zoom, x, y."
             schema:
               properties:
                     zoom:
