@@ -5,7 +5,8 @@ info:
   x-21-category: utilities
   x-21-github-project-url: https://github.com/21dotco/ping21
   x-21-keywords: [maps, tile, extent, geo]
-  x-21-quick-buy: "21 buy 'http://10.244.65.224:5000/tile_coord?zoom=19&x=10&y=46'"
+  x-21-usage: 'Send GET request to server with params in querystring. Request returns JSON object.'
+  x-21-quick-buy: "21 buy 'http://10.244.65.224:5000/tile_coord?zoom=19&x=10.3526&y=46.8876' \n 21 buy 'http://10.244.65.224:5000/tile_extent_geo?zoom=11&x=207&y=968' \n 21 buy 'http://10.244.65.224:5000/tile_extent_merc?zoom=11&x=207&y=968'"
   x-21-total-price: {max: 5, min: 5}
 basePath: /
 paths:
@@ -15,15 +16,23 @@ paths:
             produces: [application/json]
             responses:
               200:
-                description: "Coordinates of the tile that contains the given coordinates at the given zoom level. Query params: zoom, x, y."
-            schema:
-              properties:
-                    zoom:
-                      type: int
-                    x:
-                      type: double
-                    y:
-                      type: double
+                description: "Coordinates of the map tile that contains the point of given coordinates at the given zoom level. \nQuerystring: ?zoom=<zoom level>&x=<lon>&y=<lat>. \nAnswer:  { x: <tile x coord>, y: <tile y coord> }"
+                parameters:
+                    - name: zoom
+                       description: zoom level - from 0 to 21
+                       in: query
+                       required: true
+                       type: integer
+                    - name: x
+                       description: point longitude
+                       in: query
+                       required: true
+                       type: number
+                    - name: y
+                       description: point latitude
+                       in: query
+                       required: true
+                       type: number
             summary: Returns tiles x and y.
       /tile_extent_geo:
           get:
@@ -31,15 +40,23 @@ paths:
             produces: [application/json]
             responses:
               200:
-                description: "WGS84 extent of the tile at the given coordinates and at the given zoom level. Query params: zoom, x, y."
-            schema:
-              properties:
-                    zoom:
-                      type: int
-                    x:
-                      type: int
-                    y:
-                      type: int
+                description: "WGS84 extent of the tile at the given coordinates and at the given zoom level. \nQuerystring: ?zoom=<zoom level>&x=<tile x coord>&y=<tile y coord>. \nAnswer:  { minLon: <min lon>, minLat: <min lat>, maxLon: <max lon>, maxLat: <max lat> }"
+                parameters:
+                    - name: zoom
+                       description: zoom level - from 0 to 21
+                       in: query
+                       required: true
+                       type: integer
+                    - name: x
+                       description: tiles x coord
+                       in: query
+                       required: true
+                       type: integer
+                    - name: y
+                       description: tiles y coord
+                       in: query
+                       required: true
+                       type: integer
             summary: Returns geo extent of the tile at the given coords. 
       /tile_extent_merc:
           get:
@@ -47,15 +64,23 @@ paths:
             produces: [application/json]
             responses:
               200:
-                description: "Google Mercator extent of the tile at the given coordinates and at the given zoom level. Query params: zoom, x, y."
-            schema:
-              properties:
-                    zoom:
-                      type: int
-                    x:
-                      type: int
-                    y:
-                      type: int
+                description: "Google Mercator extent of the tile at the given coordinates and at the given zoom level. \nQuerystring: ?zoom=<zoom level>&x=<tile x coord>&y=<tile y coord>. \nAnswer:  { minEast: <min east>, minNorth: <min north>, maxEast: <max east>, maxNorth: <max north> }"
+                parameters:
+                    - name: zoom
+                       description: zoom level - from 0 to 21
+                       in: query
+                       required: true
+                       type: integer
+                    - name: x
+                       description: tiles x coord
+                       in: query
+                       required: true
+                       type: integer
+                    - name: y
+                       description: tiles y coord
+                       in: query
+                       required: true
+                       type: integer
             summary: Returns merc extent of the tile at the given coords.
 schemes: [http]
 swagger: '2.0'
