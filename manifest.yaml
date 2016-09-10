@@ -1,4 +1,7 @@
+swagger: '3.0'
+
 info:
+  version: "0.0.0"
   contact: {email: agitatesolidbee@gmail.com, name: ASB}
   description: 'Perform Google Maps tiles extent computations.'
   title: '21tiles'
@@ -20,20 +23,20 @@ paths:
                   description: zoom level - from 0 to 21
                   in: query
                   required: true
-                  schema:
-                    type: integer
+                  type: number
+                  format: integer
                 - name: x
                   description: point longitude
                   in: query
                   required: true
-                  schema:
-                    type: number
+                  type: number
+                  format: double
                 - name: y
                   description: point latitude
                   in: query
                   required: true
-                  schema:
-                    type: number
+                  type: number
+                  format: double
             responses:
               200:
                 description: "Coordinates of the map tile that contains the point of given coordinates at the given zoom level. \nQuerystring: ?zoom=<zoom level>&x=<lon>&y=<lat>. \nAnswer:  { x: <tile x coord>, y: <tile y coord> }"
@@ -47,20 +50,20 @@ paths:
                   description: zoom level - from 0 to 21
                   in: query
                   required: true
-                  schema:
-                    type: integer
+                  type: number
+                  format: integer
                 - name: x
                   description: tiles x coord
                   in: query
                   required: true
-                  schema:
-                    type: integer
+                  type: number
+                  format: integer
                 - name: y
                   description: tiles y coord
                   in: query
                   required: true
-                  schema:
-                    type: integer
+                  type: number
+                  format: integer
             responses:
               200:
                 description: "WGS84 extent of the tile at the given coordinates and at the given zoom level. \nQuerystring: ?zoom=<zoom level>&x=<tile x coord>&y=<tile y coord>. \nAnswer:  { minLon: <min lon>, minLat: <min lat>, maxLon: <max lon>, maxLat: <max lat> }"
@@ -75,24 +78,23 @@ paths:
                   description: zoom level - from 0 to 21
                   in: query
                   required: true
-                  schema:
-                    type: integer
+                  type: number
+                  format: integer
                 - name: x
                   description: tiles x coord
                   in: query
                   required: true
-                  schema:
-                    type: integer
+                  type: number
+                  format: integer
                 - name: y
                   description: tiles y coord
                   in: query
                   required: true
-                  schema:
-                    type: integer
+                  type: number
+                  format: initeger
             responses:
               200:
                 description: "Google Mercator extent of the tile at the given coordinates and at the given zoom level. \nQuerystring: ?zoom=<zoom level>&x=<tile x coord>&y=<tile y coord>. \nAnswer:  { minEast: <min east>, minNorth: <min north>, maxEast: <max east>, maxNorth: <max north> }"
 schemes: [http]
-swagger: '2.0'
 host: 10.244.65.224:5000
 x-21-manifest-path: /manifest
